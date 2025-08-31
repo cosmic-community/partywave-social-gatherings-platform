@@ -1,26 +1,28 @@
 import { Event } from '@/types'
 import Link from 'next/link'
 import { Calendar, MapPin, Users, DollarSign } from 'lucide-react'
-import Image from 'next/image'
 
 interface EventCardProps {
   event: Event
 }
 
 export default function EventCard({ event }: EventCardProps) {
-  const formatDate = (dateString: string, timeString: string) => {
-    const date = new Date(`${dateString}T${timeString}`)
+  const formatDate = (dateString: string, timeString?: string) => {
+    // FIXED: Handle optional time parameter with proper null check
+    const timeStr = timeString || '00:00'
+    const date = new Date(`${dateString}T${timeStr}`)
     return {
       day: date.getDate(),
       month: date.toLocaleDateString('en-US', { month: 'short' }),
-      time: date.toLocaleTimeString('en-US', { 
+      time: timeString ? date.toLocaleTimeString('en-US', { 
         hour: 'numeric', 
         minute: '2-digit',
         hour12: true 
-      })
+      }) : 'Time TBD'
     }
   }
 
+  // FIXED: Pass optional time parameter safely
   const { day, month, time } = formatDate(event.metadata.date, event.metadata.time)
   const spotsLeft = event.metadata.max_guests - event.metadata.current_guests
 

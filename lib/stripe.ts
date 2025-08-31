@@ -1,8 +1,8 @@
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  // FIXED: Update to current Stripe API version
-  apiVersion: '2023-10-16',
+  // FIXED: Update to current Stripe API version - using 2023-10-16 as constant
+  apiVersion: '2023-10-16' as const,
 });
 
 export { stripe };

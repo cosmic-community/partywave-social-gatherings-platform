@@ -262,8 +262,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-16T00:00:00Z',
     metadata: {
       description: 'Step into a world where digital art meets physical space. Experience interactive installations, vibrant projections, and collaborative art creation in this 3-hour immersive journey.',
-      // FIXED: Use definite host reference instead of potentially undefined lookup
-      host: sampleHosts.find(h => h.id === 'host-1')!,
+      // FIXED: Use guaranteed host reference with non-null assertion since we know it exists
+      host: sampleHosts.find(h => h.id === 'host-1') as Host,
       category: 'social',
       date: '2024-03-15',
       time: '19:00',
@@ -305,8 +305,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-21T00:00:00Z',
     metadata: {
       description: 'Start your weekend with intention. Join our intimate morning circle for guided meditation, breathwork, and mindful connection with like-minded souls.',
-      // FIXED: Use definite host reference
-      host: sampleHosts.find(h => h.id === 'host-2')!,
+      // FIXED: Use guaranteed host reference with non-null assertion
+      host: sampleHosts.find(h => h.id === 'host-2') as Host,
       category: 'wellness',
       date: '2024-03-16',
       time: '08:30',
@@ -342,8 +342,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-02-02T00:00:00Z',
     metadata: {
       description: 'Discover rare gems and underground classics in this intimate vinyl listening session. Bring your favorite record to share and explore new sounds together.',
-      // FIXED: Use definite host reference
-      host: sampleHosts.find(h => h.id === 'host-3')!,
+      // FIXED: Use guaranteed host reference with non-null assertion
+      host: sampleHosts.find(h => h.id === 'host-3') as Host,
       category: 'music',
       date: '2024-03-17',
       time: '20:00',
@@ -379,8 +379,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-17T00:00:00Z',
     metadata: {
       description: 'Get your hands dirty in this beginner-friendly pottery workshop. Learn basic techniques while creating your own unique ceramic pieces in a relaxed, social setting.',
-      // FIXED: Use definite host reference
-      host: sampleHosts.find(h => h.id === 'host-1')!,
+      // FIXED: Use guaranteed host reference with non-null assertion
+      host: sampleHosts.find(h => h.id === 'host-1') as Host,
       category: 'workshops',
       date: '2024-03-18',
       time: '14:00',
@@ -416,8 +416,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-02-03T00:00:00Z',
     metadata: {
       description: 'Connect with fellow entrepreneurs, founders, and innovators over brunch. Share ideas, find collaborators, and build meaningful professional relationships.',
-      // FIXED: Use definite host reference
-      host: sampleHosts.find(h => h.id === 'host-2')!,
+      // FIXED: Use guaranteed host reference with non-null assertion
+      host: sampleHosts.find(h => h.id === 'host-2') as Host,
       category: 'networking',
       date: '2024-03-19',
       time: '11:00',

@@ -67,9 +67,11 @@ export default function HostDashboard() {
         }
       }
       
-      // FIXED: Proper null safety - mockHost should always exist but we check anyway
+      // FIXED: Proper null safety - explicit null check and use null instead of undefined
       if (mockHost) {
         setHost(mockHost)
+      } else {
+        setHost(null)
       }
       setEvents(mockEvents)
       setAnalytics(mockAnalytics)

@@ -1,192 +1,192 @@
 'use client'
 
 import { useState } from 'react'
-import { sampleCategories } from '@/lib/sample-data'
-import { Filter, X } from 'lucide-react'
-
-interface FilterState {
-  category: string
-  priceRange: [number, number]
-  date: string
-  location: string
-}
+import { Calendar, MapPin, DollarSign, Users, Filter, X } from 'lucide-react'
 
 export default function EventFilters() {
   const [isOpen, setIsOpen] = useState(false)
-  const [filters, setFilters] = useState<FilterState>({
+  const [filters, setFilters] = useState({
     category: '',
-    priceRange: [0, 200],
     date: '',
-    location: ''
+    location: '',
+    priceRange: { min: 0, max: 100 },
+    capacity: ''
   })
 
-  const handleCategoryChange = (category: string) => {
-    setFilters(prev => ({
-      ...prev,
-      category: prev.category === category ? '' : category
-    }))
+  const categories = [
+    { value: '', label: 'All Categories' },
+    { value: 'social', label: 'Social' },
+    { value: 'workshops', label: 'Workshops' },
+    { value: 'music', label: 'Music' },
+    { value: 'wellness', label: 'Wellness' },
+    { value: 'networking', label: 'Networking' },
+    { value: 'premium', label: 'Premium' }
+  ]
+
+  const cities = [
+    { value: '', label: 'All Cities' },
+    { value: 'san-francisco', label: 'San Francisco' },
+    { value: 'los-angeles', label: 'Los Angeles' },
+    { value: 'new-york', label: 'New York' },
+    { value: 'austin', label: 'Austin' },
+    { value: 'portland', label: 'Portland' }
+  ]
+
+  const handleFilterChange = (key: string, value: any) => {
+    setFilters(prev => ({ ...prev, [key]: value }))
   }
 
   const clearFilters = () => {
     setFilters({
       category: '',
-      priceRange: [0, 200],
       date: '',
-      location: ''
+      location: '',
+      priceRange: { min: 0, max: 100 },
+      capacity: ''
     })
   }
 
-  const hasActiveFilters = filters.category || filters.date || filters.location || 
-    filters.priceRange[0] > 0 || filters.priceRange[1] < 200
-
   return (
-    <>
+    <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
       {/* Mobile Filter Toggle */}
-      <div className="lg:hidden mb-6">
+      <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full btn-secondary flex items-center justify-center"
+          className="w-full flex items-center justify-between btn-secondary"
         >
-          <Filter className="w-4 h-4 mr-2" />
-          Filters
-          {hasActiveFilters && (
-            <span className="ml-2 bg-primary-500 text-white text-xs px-2 py-1 rounded-full">
-              Active
-            </span>
-          )}
+          <span className="flex items-center">
+            <Filter className="w-4 h-4 mr-2" />
+            Filters
+          </span>
+          {isOpen ? <X className="w-4 h-4" /> : <Filter className="w-4 h-4" />}
         </button>
       </div>
 
-      {/* Filter Panel */}
-      <div className={`
-        bg-white rounded-2xl p-6 shadow-lg sticky top-6
-        ${isOpen ? 'block' : 'hidden lg:block'}
-      `}>
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
-            <Filter className="w-5 h-5 mr-2 text-primary-600" />
-            <h3 className="font-bold text-lg">Filters</h3>
-          </div>
-          
-          {hasActiveFilters && (
-            <button
-              onClick={clearFilters}
-              className="text-sm text-gray-500 hover:text-primary-600 transition-colors"
-            >
-              Clear All
-            </button>
-          )}
-          
+      {/* Filters */}
+      <div className={`space-y-6 ${isOpen ? 'block' : 'hidden lg:block'}`}>
+        <div className="flex items-center justify-between">
+          <h3 className="font-bold text-lg text-gray-900">Filters</h3>
           <button
-            onClick={() => setIsOpen(false)}
-            className="lg:hidden p-1 hover:bg-gray-100 rounded-lg transition-colors"
+            onClick={clearFilters}
+            className="text-sm text-primary-600 hover:text-primary-700 transition-colors"
           >
-            <X className="w-4 h-4" />
+            Clear All
           </button>
         </div>
 
-        {/* Categories */}
-        <div className="mb-8">
-          <h4 className="font-semibold text-gray-900 mb-4">Categories</h4>
-          <div className="space-y-2">
-            {sampleCategories.map(category => (
-              <label
-                key={category.id}
-                className="flex items-center p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors group"
-              >
-                <input
-                  type="checkbox"
-                  checked={filters.category === category.slug}
-                  onChange={() => handleCategoryChange(category.slug)}
-                  className="mr-3 w-4 h-4 text-primary-600 rounded border-gray-300 focus:ring-primary-500"
-                />
-                <div className="flex items-center flex-1">
-                  <span className="text-lg mr-2">{category.metadata.icon}</span>
-                  <span className="text-sm font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                    {category.title}
-                  </span>
-                </div>
-                <div className={`category-badge tier-${category.metadata.tier} text-xs`}>
-                  {category.metadata.tier}
-                </div>
-              </label>
+        {/* Category Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Category
+          </label>
+          <select
+            value={filters.category}
+            onChange={(e) => handleFilterChange('category', e.target.value)}
+            className="input-field"
+          >
+            {categories.map(category => (
+              <option key={category.value} value={category.value}>
+                {category.label}
+              </option>
             ))}
-          </div>
+          </select>
         </div>
 
-        {/* Price Range */}
-        <div className="mb-8">
-          <h4 className="font-semibold text-gray-900 mb-4">Price Range</h4>
-          <div className="px-3">
-            <input
-              type="range"
-              min="0"
-              max="200"
-              value={filters.priceRange[1]}
-              onChange={(e) => setFilters(prev => ({
-                ...prev,
-                priceRange: [0, parseInt(e.target.value)]
-              }))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-            />
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-sm text-gray-600">$0</span>
-              <span className="text-sm font-medium text-primary-600">
-                Up to ${filters.priceRange[1]}
-              </span>
-              <span className="text-sm text-gray-600">$200+</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Date */}
-        <div className="mb-8">
-          <h4 className="font-semibold text-gray-900 mb-4">Date</h4>
+        {/* Date Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <Calendar className="w-4 h-4 inline mr-1" />
+            Date
+          </label>
           <input
             type="date"
             value={filters.date}
-            onChange={(e) => setFilters(prev => ({ ...prev, date: e.target.value }))}
+            onChange={(e) => handleFilterChange('date', e.target.value)}
             className="input-field"
             min={new Date().toISOString().split('T')[0]}
           />
         </div>
 
-        {/* Location */}
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-900 mb-4">Location</h4>
+        {/* Location Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <MapPin className="w-4 h-4 inline mr-1" />
+            City
+          </label>
           <select
             value={filters.location}
-            onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
+            onChange={(e) => handleFilterChange('location', e.target.value)}
             className="input-field"
           >
-            <option value="">All Cities</option>
-            <option value="san-francisco">San Francisco</option>
-            <option value="los-angeles">Los Angeles</option>
-            <option value="new-york">New York</option>
-            <option value="austin">Austin</option>
-            <option value="portland">Portland</option>
+            {cities.map(city => (
+              <option key={city.value} value={city.value}>
+                {city.label}
+              </option>
+            ))}
           </select>
         </div>
 
-        {/* Apply Button (Mobile) */}
-        <div className="lg:hidden">
-          <button
-            onClick={() => setIsOpen(false)}
-            className="w-full btn-primary"
+        {/* Price Range Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <DollarSign className="w-4 h-4 inline mr-1" />
+            Price Range
+          </label>
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <input
+                type="number"
+                placeholder="Min"
+                value={filters.priceRange.min}
+                onChange={(e) => handleFilterChange('priceRange', {
+                  ...filters.priceRange,
+                  min: Number(e.target.value)
+                })}
+                className="input-field flex-1"
+              />
+              <span className="text-gray-500">-</span>
+              <input
+                type="number"
+                placeholder="Max"
+                value={filters.priceRange.max}
+                onChange={(e) => handleFilterChange('priceRange', {
+                  ...filters.priceRange,
+                  max: Number(e.target.value)
+                })}
+                className="input-field flex-1"
+              />
+            </div>
+            <div className="text-sm text-gray-500">
+              ${filters.priceRange.min} - ${filters.priceRange.max}
+            </div>
+          </div>
+        </div>
+
+        {/* Capacity Filter */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            <Users className="w-4 h-4 inline mr-1" />
+            Group Size
+          </label>
+          <select
+            value={filters.capacity}
+            onChange={(e) => handleFilterChange('capacity', e.target.value)}
+            className="input-field"
           >
+            <option value="">Any Size</option>
+            <option value="small">Small (1-10 people)</option>
+            <option value="medium">Medium (11-25 people)</option>
+            <option value="large">Large (26+ people)</option>
+          </select>
+        </div>
+
+        {/* Apply Filters Button */}
+        <div className="pt-4 border-t border-gray-200">
+          <button className="btn-primary w-full">
             Apply Filters
           </button>
         </div>
       </div>
-
-      {/* Mobile Overlay */}
-      {isOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-    </>
+    </div>
   )
 }

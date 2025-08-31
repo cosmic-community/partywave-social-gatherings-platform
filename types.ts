@@ -76,7 +76,7 @@ export interface Event extends CosmicObject {
     host: Host
     category: string
     date: string
-    time: string
+    time?: string  // FIXED: Made time optional since it can be undefined
     location: Location
     images?: MediaFile[]
     featured_image?: MediaFile

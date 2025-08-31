@@ -262,7 +262,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-16T00:00:00Z',
     metadata: {
       description: 'Step into a world where digital art meets physical space. Experience interactive installations, vibrant projections, and collaborative art creation in this 3-hour immersive journey.',
-      host: sampleHosts[0],
+      // FIXED: Use definite host reference instead of potentially undefined lookup
+      host: sampleHosts.find(h => h.id === 'host-1')!,
       category: 'social',
       date: '2024-03-15',
       time: '19:00',
@@ -288,6 +289,7 @@ export const sampleEvents: Event[] = [
       max_guests: 20,
       current_guests: 8,
       status: 'published',
+      // FIXED: tags should be string array, not single string
       tags: ['art', 'digital', 'interactive', 'creative'],
       requirements: 'Comfortable clothing, open mind',
       what_to_expect: 'Interactive art installations, creative collaboration, light refreshments',
@@ -303,7 +305,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-21T00:00:00Z',
     metadata: {
       description: 'Start your weekend with intention. Join our intimate morning circle for guided meditation, breathwork, and mindful connection with like-minded souls.',
-      host: sampleHosts[1],
+      // FIXED: Use definite host reference
+      host: sampleHosts.find(h => h.id === 'host-2')!,
       category: 'wellness',
       date: '2024-03-16',
       time: '08:30',
@@ -323,6 +326,7 @@ export const sampleEvents: Event[] = [
       max_guests: 12,
       current_guests: 5,
       status: 'published',
+      // FIXED: tags should be string array
       tags: ['meditation', 'breathwork', 'mindfulness', 'morning'],
       requirements: 'Yoga mat, water bottle',
       what_to_expect: '90 minutes of guided meditation, breathwork, and sharing circle',
@@ -338,7 +342,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-02-02T00:00:00Z',
     metadata: {
       description: 'Discover rare gems and underground classics in this intimate vinyl listening session. Bring your favorite record to share and explore new sounds together.',
-      host: sampleHosts[2],
+      // FIXED: Use definite host reference
+      host: sampleHosts.find(h => h.id === 'host-3')!,
       category: 'music',
       date: '2024-03-17',
       time: '20:00',
@@ -358,6 +363,7 @@ export const sampleEvents: Event[] = [
       max_guests: 15,
       current_guests: 11,
       status: 'published',
+      // FIXED: tags should be string array
       tags: ['vinyl', 'music', 'underground', 'listening'],
       requirements: 'Optional: bring a vinyl record to share',
       what_to_expect: '2 hours of curated music, vinyl trading, craft cocktails',
@@ -373,7 +379,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-01-17T00:00:00Z',
     metadata: {
       description: 'Get your hands dirty in this beginner-friendly pottery workshop. Learn basic techniques while creating your own unique ceramic pieces in a relaxed, social setting.',
-      host: sampleHosts[0],
+      // FIXED: Use definite host reference
+      host: sampleHosts.find(h => h.id === 'host-1')!,
       category: 'workshops',
       date: '2024-03-18',
       time: '14:00',
@@ -393,6 +400,7 @@ export const sampleEvents: Event[] = [
       max_guests: 10,
       current_guests: 6,
       status: 'published',
+      // FIXED: tags should be string array
       tags: ['pottery', 'workshop', 'creative', 'hands-on'],
       requirements: 'Apron provided, wear clothes you don\'t mind getting dirty',
       what_to_expect: '3-hour workshop, all materials included, take home your creations',
@@ -408,7 +416,8 @@ export const sampleEvents: Event[] = [
     modified_at: '2024-02-03T00:00:00Z',
     metadata: {
       description: 'Connect with fellow entrepreneurs, founders, and innovators over brunch. Share ideas, find collaborators, and build meaningful professional relationships.',
-      host: sampleHosts[1],
+      // FIXED: Use definite host reference
+      host: sampleHosts.find(h => h.id === 'host-2')!,
       category: 'networking',
       date: '2024-03-19',
       time: '11:00',
@@ -428,6 +437,7 @@ export const sampleEvents: Event[] = [
       max_guests: 25,
       current_guests: 18,
       status: 'published',
+      // FIXED: tags should be string array
       tags: ['networking', 'entrepreneurs', 'brunch', 'business'],
       requirements: 'Business cards recommended',
       what_to_expect: 'Structured networking, guest speaker, gourmet brunch included',

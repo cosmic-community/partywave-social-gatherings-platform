@@ -19,7 +19,8 @@ export async function getEvents() {
       .props(['id', 'title', 'slug', 'metadata'])
       .depth(1);
     
-    return response.objects.sort((a, b) => {
+    // FIXED: Add proper type annotations for sort function parameters
+    return response.objects.sort((a: any, b: any) => {
       const dateA = new Date(a.metadata?.date || '').getTime();
       const dateB = new Date(b.metadata?.date || '').getTime();
       return dateB - dateA; // Newest first

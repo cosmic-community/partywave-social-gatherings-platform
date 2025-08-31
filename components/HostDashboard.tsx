@@ -20,7 +20,7 @@ export default function HostDashboard() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 800))
       
-      // Mock data for demo
+      // Mock data for demo - with proper null check
       const mockHost = sampleHosts[0]
       const mockEvents = sampleEvents.slice(0, 3)
       
@@ -67,7 +67,10 @@ export default function HostDashboard() {
         }
       }
       
-      setHost(mockHost)
+      // FIXED: Proper null safety - mockHost should always exist but we check anyway
+      if (mockHost) {
+        setHost(mockHost)
+      }
       setEvents(mockEvents)
       setAnalytics(mockAnalytics)
       setLoading(false)

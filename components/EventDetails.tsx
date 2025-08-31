@@ -35,7 +35,8 @@ export default function EventDetails({ event }: EventDetailsProps) {
 
   const spotsLeft = event.metadata.max_guests - event.metadata.current_guests
   const { full: fullDate } = formatDate(event.metadata.date)
-  // FIXED: Add proper null check and fallback for time formatting
+  
+  // FIXED: Add proper null check for time field to prevent TypeScript error
   const formattedTime = event.metadata.time ? formatTime(event.metadata.time) : 'Time TBD'
 
   return (

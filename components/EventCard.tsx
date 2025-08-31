@@ -22,8 +22,8 @@ export default function EventCard({ event }: EventCardProps) {
     }
   }
 
-  // FIXED: Pass optional time parameter safely
-  const { day, month, time } = formatDate(event.metadata.date, event.metadata.time)
+  // FIXED: Pass optional time parameter safely with proper undefined handling
+  const { day, month, time } = formatDate(event.metadata.date, event.metadata.time ?? undefined)
   const spotsLeft = event.metadata.max_guests - event.metadata.current_guests
 
   return (

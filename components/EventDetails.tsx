@@ -35,7 +35,8 @@ export default function EventDetails({ event }: EventDetailsProps) {
 
   const spotsLeft = event.metadata.max_guests - event.metadata.current_guests
   const { full: fullDate } = formatDate(event.metadata.date)
-  const formattedTime = formatTime(event.metadata.time)
+  // FIXED: Add safe parsing for time with fallback
+  const formattedTime = event.metadata.time ? formatTime(event.metadata.time) : 'Time TBD'
 
   return (
     <div className="pt-20 pb-12">

@@ -90,3 +90,34 @@ export interface Event extends CosmicObject {
     minimum_age?: number
   }
 }
+
+// Chart.js data structure for analytics
+export interface ChartData {
+  labels: string[]
+  datasets: Array<{
+    label: string
+    data: number[]
+    backgroundColor: string | string[]
+    borderColor?: string
+    borderWidth?: number
+  }>
+}
+
+// Analytics data structure for dashboard
+export interface AnalyticsData {
+  totalRevenue: number
+  totalBookings: number
+  totalEvents: number
+  averageTicketPrice: number
+  categoryBreakdown: ChartData
+  revenueOverTime: ChartData
+  popularTimes: ChartData
+}
+
+// Authentication user interface
+export interface AuthUser {
+  id: string
+  email: string
+  type: 'host' | 'guest'
+  title: string
+}
